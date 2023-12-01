@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "./components/homePage/Homepage";
+import Register from "./components/register/Register";
+import Login from "./components/login/Login";
+import ForgetPasswordPhone from "./components/forgetPassword/ForgetPasswordPhone";
+import ForgetPasswordOtp from "./components/forgetPassword/ForgetPasswordOtp";
+import ForgetPassword from "./components/forgetPassword/ForgetPassword";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+    <BrowserRouter>
+      <Routes>
+       
+          <Route path="/" element={<Homepage/>} />
+           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/reset-password-phone" element={<ForgetPasswordPhone />} />
+          <Route path="/reset-password-otp" element={<ForgetPasswordOtp />} />
+          <Route path="/reset-password" element={<ForgetPassword />} />
+          {/*<Route path="*" element={<NoPage />} /> */}
+       
+      </Routes>
+    </BrowserRouter>
+    </>
   );
 }
 

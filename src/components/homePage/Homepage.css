@@ -1,0 +1,33 @@
+.imagegap{
+    margin-right: 30px !important;
+}
+
+.imagewidth{
+    width: 14rem;
+}
+
+.homepagerow{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* @media only screen and (max-width: 400px) {
+    .imagewidth{
+        width: 8rem !important;
+    }
+  } */
+
+  @media (max-width: 400px) {
+    .imagewidth{
+        width: 10rem !important;
+    }
+    .imagegap{
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+        width: auto !important;
+    }
+    .homepagerow{
+    margin-left: 0px !important;
+    }
+    
+}
