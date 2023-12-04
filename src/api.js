@@ -98,3 +98,44 @@ export const loginUser = async (userData) => {
       throw error;
     }
   };
+
+  export const sendForgetOtp = async (phoneNumber) => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+  
+    const raw = JSON.stringify({
+      phoneNumber,
+    });
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+  
+    const response = await fetch(`${API_BASE_URL}/send-forgetotp`, requestOptions);
+    const result = await response.text();
+  
+    return { status: response.status, result };
+  };
+
+  export const verifyOtp = async (phoneNumber, otp) => {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+  
+    const raw = JSON.stringify({
+      phoneNumber: phoneNumber,
+      otp: otp,
+    });
+  
+    const requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+    };
+  
+    const response = await fetch(`${API_BASE_URL}/verify-otp`, requestOptions);
+    return response;
+  };

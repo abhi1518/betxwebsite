@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Header from '../header/Header';
 import Fotter from '../fotter/Fotter';
 import { useNavigate } from 'react-router-dom';
+import { sendForgetOtp } from '../../api';
 
 function ForgetPasswordPhone() {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ function ForgetPasswordPhone() {
 
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validate form data
@@ -26,10 +27,28 @@ function ForgetPasswordPhone() {
       return;
     }
 
-    // Form submission logic goes here
-    console.log('Form submitted:', formData);
-    navigate('/reset-password-otp');
+    try {
+      // Call the API function for sending forget OTP
+      const { status, result } = await sendForgetOtp(formData.phoneNumber);
+
+      // Handle the API response as needed
+      console.log('API Status Code:', status);
+      console.log('API Response:', result);
+
+      // If the API call is successful (status code 200), save the phone number in localStorage
+      if (status === 200) {
+        localStorage.setItem('forgetPhoneNumber', formData.phoneNumber);
+      }
+
+      // For demonstration purposes, you can navigate to the next step
+      navigate('/reset-password-otp');
+    } catch (error) {
+      // Handle API call error
+      console.error('Error calling sendForgetOtp API:', error);
+      // You can set an error state or display an error message to the user
+    }
   };
+
 
   return (
     <div>
@@ -50,6 +69,7 @@ function ForgetPasswordPhone() {
                         placeholder="Enter your phone no."
                         className={`form-control ${errors.phoneNumber ? 'is-invalid' : ''}`}
                         value={formData.phoneNumber}
+                        // onChange={handleChange}
                         onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
                       />
                       {errors.phoneNumber && <div className="invalid-feedback">{errors.phoneNumber}</div>}
